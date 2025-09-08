@@ -20,6 +20,6 @@ from django.views.generic import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('library/', include('library.urls')),
-    path('', RedirectView.as_view(url='/library/')), #redirects to the base_main.html
+    path('lib/', include('library.urls')),
+    path('', RedirectView.as_view(url='/lib/')), #redirects to the base_main.html
 ]

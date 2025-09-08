@@ -1,0 +1,38 @@
+{% extends 'lib/base_main.html'%}
+{% block title %}Books Page{% endblock %}
+
+{% block header %}Welcome to the Books Page{% endblock %}
+
+{% block content %}
+    <h2>List of Books</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Author</th>
+                    <th>ISBN</th>
+                    <th>Published Date</th>
+                    <th>Available Copies</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for book in books %}
+                <tr>
+                    <td>{{ book.title }}</td>
+                    <td>{{ book.author }}</td>
+                    <td>{{ book.isbn }}</td>
+                    <td>{{ book.published_date }}</td>
+                    <td>{{ book.available_copies }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5">
+                        No books available.
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+{% endblock %}
+
+{% block footer %}© 2024 My Library{% endblock %}

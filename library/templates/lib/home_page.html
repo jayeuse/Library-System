@@ -1,4 +1,4 @@
-{% extends 'library/base_main.html'%}
+{% extends 'lib/base_main.html'%}
 
 {% block title %}Home Page{% endblock %}
 
@@ -8,11 +8,11 @@
     <h2>Library Home</h2>
     <p>This is the home page of the library system.</p>
 
-    <ul>
-        <li>
-            <a href="{% url 'insert_student'%}">Insert Students</a>
-        </li>
-    </ul>
+    <nav class="insert_navigation">
+        <a href="{% url 'student_list' %}">View Students</a>
+        <a href="{% url 'book_list' %}">View Books</a>
+    </nav>
+
 {% endblock %}
 
 {% block footer %}© 2024 My Library{% endblock %}
