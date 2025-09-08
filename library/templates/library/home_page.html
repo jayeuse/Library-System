@@ -1,0 +1,18 @@
+{% extends 'library/base_main.html'%}
+
+{% block title %}Home Page{% endblock %}
+
+{% block header %}Welcome to the Home Page{% endblock %}
+
+{% block content %}
+    <h2>Library Home</h2>
+    <p>This is the home page of the library system.</p>
+
+    <ul>
+        <li>
+            <a href="{% url 'insert_student'%}">Insert Students</a>
+        </li>
+    </ul>
+{% endblock %}
+
+{% block footer %}© 2024 My Library{% endblock %}

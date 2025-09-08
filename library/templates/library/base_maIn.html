@@ -1,0 +1,29 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Main Page{% endblock %}</title>
+</head>
+<body>
+    <header>
+        <h1>{% block header %}Welcome to the Main Page{% endblock %}</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="{% url 'student_list' %}">Students</a></li>
+                <li><a href="{% url 'book_list' %}">Books</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        {% block content %}
+        <p>This is the main content area.</p>
+        {% endblock %}
+    </main>
+
+    <footer>
+        <p>{% block footer %}© 2024 My Website{% endblock %}</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,13 @@
+{% extends 'library/base_main.html' %}
+
+{% block title %}Add Student{% endblock %}
+
+{% block content %}
+<h2>Add New Student</h2>
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
+<a href="{% url 'student_list' %}">Back to Students List</a>
+{% endblock %}

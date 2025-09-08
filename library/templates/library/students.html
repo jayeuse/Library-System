@@ -1,0 +1,18 @@
+{% extends 'library/base_main.html'%}
+
+{% block title %}Students Page{% endblock %}
+
+{% block header %}Welcome to the Students Page{% endblock %}
+
+{% block content %}
+    <h2>List of Students</h2>
+    <ul>
+        {% for student in students %}
+            <li>{{ student.student_id }} - {{ student.last_name }} {{ student.first_name }}</li>
+        {% empty %}
+            <li>No students available.</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
+
+{% block footer %}© 2024 My Library{% endblock %}
