@@ -1,4 +1,4 @@
-{% extends 'lib/base_main.html'%}
+{% extends 'lib/base_main.html' %}
 
 {% block title %}Students Page{% endblock %}
 
@@ -6,6 +6,12 @@
 
 {% block content %}
     <h2>List of Students</h2>
+
+    <form class="searchForm" id="searchForm">
+        <input type="text" name="q" placeholder="Search by Student ID">
+        <button type="submit">Search</button>
+    </form>
+    
     <table border=1>
         <thead>
             <tr>
@@ -18,22 +24,27 @@
             </tr>
         </thead>
         <tbody>
-            {% for student in students %}
-            <tr>
-                <td>{{ student.student_id }}</td>
-                <td>{{ student.last_name }}</td>
-                <td>{{ student.first_name }}</td>
-                <td>{{ student.course }}</td>
-                <td>{{ student.year_level }}</td>
-                <td>{{ student.section }}</td>
-            </tr>
-            {% empty %}
-            <tr>
-                <td colspan="6">No students available.</td>
-            </tr>
-            {% endfor %}
+            {% include 'partials/student_rows.html' %}
         </tbody>
     </table>
+
+    <script>
+        document.getElementById('searchForm').addEventListener('submit',
+        async function(event) {
+            event.preventDefault();
+            let query = this.q.value;
+            try {
+                let response = await fetch("{% url 'student_list' %}?q=" + encodeURIComponent(query),{
+                    method: "GET",
+                    headers: { "X-Requested-With": "XMLHttpRequest" }
+                });
+                let data = await response.text();
+                document.querySelector('tbody').innerHTML = data;
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        })
+    </script>
 {% endblock %}
 
 {% block footer %}© 2024 My Library{% endblock %}

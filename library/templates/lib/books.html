@@ -5,34 +5,44 @@
 
 {% block content %}
     <h2>List of Books</h2>
-        <table border="1">
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Author</th>
-                    <th>ISBN</th>
-                    <th>Published Date</th>
-                    <th>Available Copies</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for book in books %}
-                <tr>
-                    <td>{{ book.title }}</td>
-                    <td>{{ book.author }}</td>
-                    <td>{{ book.isbn }}</td>
-                    <td>{{ book.published_date }}</td>
-                    <td>{{ book.available_copies }}</td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="5">
-                        No books available.
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+
+    <form class="searchForm" id="searchForm">
+        <input type="text" name="q" placeholder="Search by Title">
+        <button type="submit">Search</button>
+    </form>
+
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>ISBN</th>
+                <th>Published Date</th>
+                <th>Available Copies</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% include 'partials/book_rows.html' %}
+        </tbody>
+    </table>
+
+    <script>
+        document.getElementById('searchForm').addEventListener('submit',
+        async function(event){
+            event.preventDefault();
+            let query = this.q.value;
+            try {
+                let response = await fetch("{% url 'book_list'%}?q=" + encodeURIComponent(query), {
+                    method: 'GET',
+                    headers: { "X-Requested-With": "XMLHttpRequest" }
+                })
+                let data = await response.text();
+                document.querySelector('tbody').innerHTML = data;
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        })
+    </script>
 {% endblock %}
 
 {% block footer %}© 2024 My Library{% endblock %}
